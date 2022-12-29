@@ -33,10 +33,10 @@ public class TechStack {
         @JoinColumn(name = "designerStack_id", referencedColumnName = "designerStackId")
         private DesignerStack designerStack;
 
-        @ManyToOne
+        @ManyToOne(cascade=CascadeType.ALL)
         @JoinColumn(name="user_Id", nullable=false)
         private User user;
-        @ManyToOne
+        @ManyToOne(cascade=CascadeType.ALL)
         @JoinColumn(name="vacancyId", nullable=false)
         private Vacancy vacancy;
 }

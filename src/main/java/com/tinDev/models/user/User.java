@@ -31,7 +31,7 @@ public class User {
     @Column(name = "experience")
     private int experience;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
     @Column(name = "languages")
     private List<Languages> languages;
 
@@ -39,7 +39,7 @@ public class User {
     @JoinColumn(name = "position_id", referencedColumnName = "positionId")
     private Position position;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
     @Column(name = "techStack")
     private List<TechStack> techStack;
 //    @OneToMany

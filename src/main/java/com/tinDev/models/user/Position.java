@@ -22,6 +22,6 @@ public class Position {
     @Column(name = "seniority")
     private Seniority seniority;
 
-    @OneToOne(mappedBy = "position")
-    private User user;
+//    @OneToOne(mappedBy = "position")
+//    private User user;
 }

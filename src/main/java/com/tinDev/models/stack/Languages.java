@@ -16,7 +16,7 @@ public class Languages {
     @Column(name = "languageId")
     private int languageId;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="user_Id", nullable=false)
     private User user;
 }
