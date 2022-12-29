@@ -1,10 +1,9 @@
 package com.tinDev.models.user;
+import com.tinDev.models.stack.Languages;
 import com.tinDev.models.stack.TechStack;
 import com.tinDev.models.user.enums.WorkType;
 import jakarta.persistence.*;
 import lombok.*;
-import com.tinDev.models.Vacancy;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
 
@@ -12,12 +11,12 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name="tinDevUsers", schema = "public")
+@Table(name="tinDevUser", schema = "public")
 public class User {
 
     @jakarta.persistence.Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userId")
     private int userId;
 
     @Column(name = "userName")
@@ -31,22 +30,24 @@ public class User {
     private int salaryExpectations;
     @Column(name = "experience")
     private int experience;
-    @OneToMany
-    @Column(name = "languages")
-    private List<String> languages;
 
-    @OneToOne
-    @Column(name = "position")
+    @OneToMany(mappedBy="user")
+    @Column(name = "languages")
+    private List<Languages> languages;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "position_id", referencedColumnName = "positionId")
     private Position position;
-    @OneToOne
-    @Column(name = "stack")
-    private TechStack stack;
+
+    @OneToMany(mappedBy="user")
+    @Column(name = "techStack")
+    private List<TechStack> techStack;
 //    @OneToMany
 //    @Column(name = "vacancies")
 //    private List<Vacancy> vacancies;
-    private List<Vacancy> pendingVacancies;
-    private List<Vacancy> acceptedVacancies;
-    private List<Vacancy> rejectedVacancies;
-    private List<Vacancy> interviewVacancies;
-    private List<Vacancy> testAssignmentVacancies;
+//    private List<Vacancy> pendingVacancies;
+//    private List<Vacancy> acceptedVacancies;
+//    private List<Vacancy> rejectedVacancies;
+//    private List<Vacancy> interviewVacancies;
+//    private List<Vacancy> testAssignmentVacancies;
 }

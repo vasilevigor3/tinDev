@@ -1,11 +1,42 @@
 package com.tinDev.models.stack;
 
-import lombok.Data;
+import com.tinDev.models.Vacancy;
+import com.tinDev.models.user.User;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
-@Data
+@Setter
+@Getter
+@Entity
+@Table(name="techStack", schema = "public")
 public class TechStack {
-        private Back back;
-        private Front front;
-        private QA qa;
-        private Designer designer;
+        @jakarta.persistence.Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "techStackId")
+        private int techStackId;
+
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "backStack_id", referencedColumnName = "backStackId")
+        private BackStack backStack;
+
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "frontStack_id", referencedColumnName = "frontStackId")
+        private FrontStack frontStack;
+
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "qaStack_id", referencedColumnName = "qaStackId")
+        private QAStack qaStack;
+
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "designerStack_id", referencedColumnName = "designerStackId")
+        private DesignerStack designerStack;
+
+        @ManyToOne
+        @JoinColumn(name="user_Id", nullable=false)
+        private User user;
+        @ManyToOne
+        @JoinColumn(name="vacancyId", nullable=false)
+        private Vacancy vacancy;
 }

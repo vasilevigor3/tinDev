@@ -10,15 +10,18 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
+
 @Setter
 @Getter
 @Entity
 @Table(name = "vacancies", schema = "public")
 public class Vacancy {
     @jakarta.persistence.Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "vacancyId")
     private int vacancyId;
+
     @Column(name = "companyName")
     private String companyName;
     @Column(name = "description")
@@ -30,12 +33,14 @@ public class Vacancy {
     private Seniority requiredSeniority;
     @Column(name = "jobTitle")
     private Carrier jobTitle;
-    @Column(name = "companyStatus")
-    private CompanyStatus companyStatus;
+//    @Column(name = "companyStatus")
+//    private CompanyStatus companyStatus;
     @Column(name = "vacancyStatus")
     private VacancyStatus vacancyStatus;
+
+    @OneToMany(mappedBy="vacancy")
     @Column(name = "techStack")
-    private TechStack techStack;
+    private List<TechStack> techStack;
 
 
 

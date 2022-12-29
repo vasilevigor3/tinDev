@@ -12,7 +12,8 @@ CREATE TABLE [IF NOT EXISTS] tinDevUser (
    position_id int,
    CONSTRAINT fk_position FOREIGN KEY(position_id) REFERENCES position(positionId),
 
-   stack varchar(50),
+   techStack_id int,
+   CONSTRAINT fk_techStack FOREIGN KEY(techStack_id) REFERENCES position(techStackId),
 );
 
 CREATE TABLE [IF NOT EXISTS] language (
@@ -27,7 +28,6 @@ CREATE TABLE [IF NOT EXISTS] position (
     seniority varchar(30)
 );
 
-
 CREATE TABLE [IF NOT EXISTS] vacancy (
     vacancyId SERIAL PRIMARY KEY,
     companyName varchar(100),
@@ -38,6 +38,30 @@ CREATE TABLE [IF NOT EXISTS] vacancy (
     companyStatus varchar(30),
     vacancyStatus varchar(30),
     techStack varchar(30)
-
 );
 
+CREATE TABLE [IF NOT EXISTS] techStack (
+    techStackId SERIAL PRIMARY KEY,
+    back_id int,
+    front_id int,
+    qa_id int,
+    designer_id int
+    CONSTRAINT fk_back FOREIGN KEY(back_id) REFERENCES position(backId),
+    CONSTRAINT fk_front FOREIGN KEY(front_id) REFERENCES position(frontId),
+    CONSTRAINT fk_qa FOREIGN KEY(qa_id) REFERENCES position(qaId),
+    CONSTRAINT fk_designer FOREIGN KEY(designer_id) REFERENCES position(designerId),
+--    level
+);
+
+CREATE TABLE [IF NOT EXISTS] techStack (
+    techStackId SERIAL PRIMARY KEY,
+    back_id int,
+    front_id int,
+    qa_id int,
+    designer_id int
+    CONSTRAINT fk_back FOREIGN KEY(back_id) REFERENCES position(backId),
+    CONSTRAINT fk_front FOREIGN KEY(front_id) REFERENCES position(frontId),
+    CONSTRAINT fk_qa FOREIGN KEY(qa_id) REFERENCES position(qaId),
+    CONSTRAINT fk_designer FOREIGN KEY(designer_id) REFERENCES position(designerId),
+--    level
+);
