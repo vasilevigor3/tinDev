@@ -16,12 +16,9 @@ public class Position {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "positionId")
-    private int userId;
+    private int positionId;
     @Column(name = "carrier")
     private Carrier carrier;
     @Column(name = "seniority")
     private Seniority seniority;
-
-//    @OneToOne(mappedBy = "position")
-//    private User user;
 }

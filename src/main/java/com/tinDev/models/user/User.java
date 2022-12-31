@@ -1,4 +1,7 @@
 package com.tinDev.models.user;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.tinDev.models.Vacancy;
+import com.tinDev.models.company.VacancyStatus;
 import com.tinDev.models.stack.Languages;
 import com.tinDev.models.stack.TechStack;
 import com.tinDev.models.user.enums.WorkType;
@@ -6,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Setter
@@ -31,23 +35,29 @@ public class User {
     @Column(name = "experience")
     private int experience;
 
-    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+    @OneToMany
+    @JoinColumn(name = "user_id")
     @Column(name = "languages")
-    private List<Languages> languages;
+    private Set<Languages> languages;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "position_id", referencedColumnName = "positionId")
-    private Position position;
+    @OneToMany
+    @JoinColumn(name = "positionId")
+    private List<Position> position;
 
     @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
     @Column(name = "techStack")
     private List<TechStack> techStack;
-//    @OneToMany
-//    @Column(name = "vacancies")
-//    private List<Vacancy> vacancies;
-//    private List<Vacancy> pendingVacancies;
-//    private List<Vacancy> acceptedVacancies;
-//    private List<Vacancy> rejectedVacancies;
-//    private List<Vacancy> interviewVacancies;
-//    private List<Vacancy> testAssignmentVacancies;
+
+    @ManyToMany
+    @JoinTable(name = "users_vacancies",
+            //foreign key for UserEntity in users_vacancies table
+            joinColumns = @JoinColumn(name = "va_id"),
+            //foreign key for other side - EmployeeEntity in employee_car table
+            inverseJoinColumns = @JoinColumn(name = "us_id"))
+    @JsonIgnoreProperties("users")
+    private Set<Vacancy> vacancies;
+
+    @ManyToMany(mappedBy = "listUser")
+    @JsonIgnoreProperties("users")
+    private List<VacancyStatus> listVacancyStatuses;
 }

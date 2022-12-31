@@ -5,7 +5,6 @@ import com.tinDev.models.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 @Setter
 @Getter
@@ -34,7 +33,7 @@ public class TechStack {
         private DesignerStack designerStack;
 
         @ManyToOne(cascade=CascadeType.ALL)
-        @JoinColumn(name="user_Id", nullable=false)
+        @JoinColumn(name="userId", nullable=false)
         private User user;
         @ManyToOne(cascade=CascadeType.ALL)
         @JoinColumn(name="vacancyId", nullable=false)
