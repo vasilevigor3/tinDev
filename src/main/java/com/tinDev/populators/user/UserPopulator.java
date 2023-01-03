@@ -1,17 +1,10 @@
 package com.tinDev.populators.user;
 
-import com.tinDev.models.Vacancy;
-import com.tinDev.models.company.enums.VacancyEnumStatus;
 import com.tinDev.models.user.User;
 import com.tinDev.models.user.dto.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserPopulator {

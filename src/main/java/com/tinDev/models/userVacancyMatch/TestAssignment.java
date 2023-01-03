@@ -1,7 +1,8 @@
-package com.tinDev.models.company;
+package com.tinDev.models.userVacancyMatch;
 
+import com.tinDev.models.user.User;
+import com.tinDev.models.vanancy.Vacancy;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,8 +22,12 @@ public class TestAssignment {
     @Column(name = "linkToAssignment")
     private String linkToAssignment;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="vacancyStatusId", insertable=false, updatable=false)
-    private VacancyStatus vacancyStatus;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "vacancy_id")
+    private Vacancy vacancy;
 
 }

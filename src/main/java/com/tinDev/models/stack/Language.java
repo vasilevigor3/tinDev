@@ -2,17 +2,17 @@ package com.tinDev.models.stack;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
 @Data
 @Entity
-@Table(name = "designer_stack")
-public class DesignerStack {
+@Table(name = "languages")
+public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(mappedBy = "designerStack")
-    private TechStack techStack;
+    @Column(name = "name")
+    private String name;
 }
-

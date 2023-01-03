@@ -1,18 +1,17 @@
 package com.tinDev.models.stack;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Data;
 
-@Setter
-@Getter
+
+@Data
 @Entity
-@Table(name="QAStack", schema = "public")
+@Table(name = "qa_stack")
 public class QAStack {
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "QAStackId")
-    private int QAStackId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
+    @OneToOne(mappedBy = "qaStack")
+    private TechStack techStack;
 }

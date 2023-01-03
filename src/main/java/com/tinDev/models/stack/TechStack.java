@@ -1,41 +1,42 @@
 package com.tinDev.models.stack;
 
-import com.tinDev.models.Vacancy;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tinDev.models.vanancy.Vacancy;
 import com.tinDev.models.user.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 @Entity
-@Table(name="techStack", schema = "public")
+@Table(name = "tech_stack")
 public class TechStack {
-        @jakarta.persistence.Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "techStackId")
-        private int techStackId;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
 
         @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "backStack_id", referencedColumnName = "backStackId")
+        @JoinColumn(name = "back_stack_id", referencedColumnName = "id")
         private BackStack backStack;
 
         @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "frontStack_id", referencedColumnName = "frontStackId")
+        @JoinColumn(name = "front_stack_id", referencedColumnName = "id")
         private FrontStack frontStack;
 
         @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "qaStack_id", referencedColumnName = "qaStackId")
+        @JoinColumn(name = "qa_stack_id", referencedColumnName = "id")
         private QAStack qaStack;
 
         @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "designerStack_id", referencedColumnName = "designerStackId")
+        @JoinColumn(name = "designer_stack_id", referencedColumnName = "id")
         private DesignerStack designerStack;
 
-        @ManyToOne(cascade=CascadeType.ALL)
-        @JoinColumn(name="userId", nullable=false)
-        private User user;
-        @ManyToOne(cascade=CascadeType.ALL)
-        @JoinColumn(name="vacancyId", nullable=false)
+        @ManyToOne
+        @JoinColumn(name = "vacancy_id")
         private Vacancy vacancy;
+
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        @JsonIgnore
+        private User user;
 }
+

@@ -1,63 +1,67 @@
 package com.tinDev.models.user;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.tinDev.models.Vacancy;
-import com.tinDev.models.company.VacancyStatus;
-import com.tinDev.models.stack.Languages;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tinDev.models.stack.Language;
 import com.tinDev.models.stack.TechStack;
 import com.tinDev.models.user.enums.WorkType;
+import com.tinDev.models.userVacancyMatch.UserVacancyMatch;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
-import java.util.List;
 import java.util.Set;
+import java.util.List;
 
-
-@Setter
-@Getter
+@Data
 @Entity
-@Table(name="tinDevUser", schema = "public")
+@Table(name = "users")
 public class User {
-
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "userId")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
-    @Column(name = "userName")
+    @Column(name = "user_name")
     private String userName;
-    @Column(name = "userLastName")
+
+    @Column(name = "user_last_name")
     private String userLastName;
 
-    @Column(name = "workType")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_contacts_id", referencedColumnName = "id")
+    private UserContacts userContacts;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "work_type")
     private WorkType workType;
-    @Column(name = "salaryExpectations")
+
+    @Column(name = "salary_expectations")
     private int salaryExpectations;
+
     @Column(name = "experience")
     private int experience;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    @Column(name = "languages")
-    private Set<Languages> languages;
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "user_languages",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "language_id")
+    )
+    private Set<Language> languages;
 
-    @OneToMany
-    @JoinColumn(name = "positionId")
-    private List<Position> position;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Position> positions;
 
-    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
-    @Column(name = "techStack")
-    private List<TechStack> techStack;
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "user_tech_stack",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tech_stack_id")
+    )
+    private Set<TechStack> techStack;
 
-    @ManyToMany
-    @JoinTable(name = "users_vacancies",
-            //foreign key for UserEntity in users_vacancies table
-            joinColumns = @JoinColumn(name = "va_id"),
-            //foreign key for other side - EmployeeEntity in employee_car table
-            inverseJoinColumns = @JoinColumn(name = "us_id"))
-    @JsonIgnoreProperties("users")
-    private Set<Vacancy> vacancies;
-
-    @ManyToMany(mappedBy = "listUser")
-    @JsonIgnoreProperties("users")
-    private List<VacancyStatus> listVacancyStatuses;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserVacancyMatch> matches;
 }

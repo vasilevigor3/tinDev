@@ -8,15 +8,13 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
 
-@Setter
-@Getter
 @Entity
-@Table(name="backStack", schema = "public")
+@Table(name = "back_stack")
 public class BackStack {
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "backStackId")
-    private int backStackId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-//    private List<AbstractSkill> skills;
+    @OneToOne(mappedBy = "backStack")
+    private TechStack techStack;
 }

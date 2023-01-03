@@ -1,21 +1,15 @@
 package com.tinDev.models.stack;
 
-import com.tinDev.models.stack.skils.AbstractSkill;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Data;
 
-import java.util.List;
-@Setter
-@Getter
+@Data
 @Entity
-@Table(name="frontStack", schema = "public")
+@Table(name = "front_stack")
 public class FrontStack {
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "frontStackId")
-    private int frontStackId;
-
-//    private List<AbstractSkill> skills;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @OneToOne(mappedBy = "frontStack")
+    private TechStack techStack;
 }

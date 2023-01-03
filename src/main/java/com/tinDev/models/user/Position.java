@@ -1,5 +1,6 @@
 package com.tinDev.models.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import com.tinDev.models.user.enums.Carrier;
@@ -8,17 +9,20 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-@Setter
-@Getter
+@Data
 @Entity
-@Table(name="position", schema = "public")
+@Table(name = "positions")
 public class Position {
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "positionId")
-    private int positionId;
-    @Column(name = "carrier")
-    private Carrier carrier;
-    @Column(name = "seniority")
-    private Seniority seniority;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "title")
+    private String title;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 }
+
