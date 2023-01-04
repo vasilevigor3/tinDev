@@ -5,9 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import com.tinDev.models.user.enums.Carrier;
 import com.tinDev.models.user.enums.Seniority;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @Entity
@@ -17,8 +14,13 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "title")
-    private String title;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "carrier")
+    private Carrier carrier;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "seniority")
+    private Seniority seniority;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
