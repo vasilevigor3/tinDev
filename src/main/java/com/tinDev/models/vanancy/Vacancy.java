@@ -1,13 +1,12 @@
 package com.tinDev.models.vanancy;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tinDev.models.stack.TechStack;
 import com.tinDev.models.userVacancyMatch.UserVacancyMatch;
-import jakarta.persistence.*;
 import com.tinDev.models.user.enums.Carrier;
 import com.tinDev.models.user.enums.Seniority;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 

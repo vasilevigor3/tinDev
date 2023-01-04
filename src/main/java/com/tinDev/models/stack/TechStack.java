@@ -3,8 +3,9 @@ package com.tinDev.models.stack;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinDev.models.vanancy.Vacancy;
 import com.tinDev.models.user.User;
-import jakarta.persistence.*;
 import lombok.Data;
+
+import javax.persistence.*;
 
 @Data
 @Entity

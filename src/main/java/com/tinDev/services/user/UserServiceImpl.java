@@ -1,16 +1,14 @@
 package com.tinDev.services.user;
 
 import com.tinDev.models.user.User;
-import com.tinDev.models.vanancy.Vacancy;
 import com.tinDev.repository.user.UserRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 

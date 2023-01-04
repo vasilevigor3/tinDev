@@ -1,12 +1,10 @@
 package com.tinDev.models.userVacancyMatch;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tinDev.models.user.User;
 import com.tinDev.models.vanancy.Vacancy;
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
