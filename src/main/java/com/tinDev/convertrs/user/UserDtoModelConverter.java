@@ -18,7 +18,7 @@ public class UserDtoModelConverter {
     private ModelMapper modelMapper;
     @Autowired
     private UserVacancyMatchService userVacancyMatchService;
-    
+
     public UserDto convertToEntity(final User user) {
         TypeMap<User, UserDto> propertyMapper = modelMapper.typeMap(User.class, UserDto.class);
 
